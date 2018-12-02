@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:layout_width="match_parent"
     android:padding="10dp"
+    android:layout_margin="3dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
+        <!-- 술의 이름 -->
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/alc_name_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
-        </TextView>
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:layout_weight="3"
+            android:background="@color/colorWhite"
+            android:padding="3dp"
+            android:text=" 술의 이름"
+            android:textSize="19sp"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:gravity="center"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:padding="3dp">
+            <!-- 생성 날짜 -->
             <TextView
+                android:id="@+id/date_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="작성 날짜"
+                android:textSize="10sp" />
+            <!-- 술의 종류 -->
             <TextView
+                android:id="@+id/category_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="술의 종류"
+                android:textSize="12sp" />
         </LinearLayout>
 
 
     </LinearLayout>
 
+    <!-- 감상평 -->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/comment_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:padding="3dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/colorWhite"
+        android:text="STORY"/>
 
 </LinearLayout>
