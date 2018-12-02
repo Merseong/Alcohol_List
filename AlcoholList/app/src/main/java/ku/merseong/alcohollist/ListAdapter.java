@@ -46,11 +46,13 @@ public class ListAdapter extends BaseAdapter
             view = inflater.inflate(R.layout.item, viewGroup, false);
         }
 
+        // id 기반으로 텍스트뷰를 찾아다가 배정
         TextView oAlcName = (TextView) view.findViewById(R.id.alc_name_text);
         TextView oAlcDate = (TextView) view.findViewById(R.id.date_text);
         TextView oAlcCategory = (TextView) view.findViewById(R.id.category_text);
         TextView oAlcComment = (TextView) view.findViewById(R.id.comment_text);
 
+        // 거기에 텍스트를 입력
         oAlcName.setText(m_oData.get(i).name);
         oAlcDate.setText(m_oData.get(i).GetDate());
         oAlcComment.setText(m_oData.get(i).GetShortComment());

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TEST CASES
         new Alcohol(1111111, "복순도가", Enums.AlcCategory.TAKJU, "NONE", "존나개맛있다.");
         new Alcohol(1222222, "느린마을", Enums.AlcCategory.TAKJU, "NONE", "존나맛있다.");
         new Alcohol(1111111, "참이슬", Enums.AlcCategory.SOJU, "NONE", "이걸 왜 돈주고먹음;");

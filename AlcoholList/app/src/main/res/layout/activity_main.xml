@@ -8,6 +8,7 @@
     tools:context=".MainActivity"
     android:id="@+id/MainScreen">
 
+    <!-- 상단 메뉴바 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -39,6 +40,7 @@
 
     </LinearLayout>
 
+    <!-- 아이템이 들어갈 장소 -->
     <ListView
         android:id="@+id/listview1"
         android:layout_width="match_parent"
