@@ -44,6 +44,16 @@ public class Alcohol
         AlcList.remove(index);
     }
 
+    public static void Save()
+    {}
+
+    public static void Load()
+    {}
+
+    public static void Reset()
+    {}
+
+    // AlcList를 역순으로 출력
     public static ArrayList<Alcohol> publicAlcList()
     {
         ArrayList<Alcohol> out = new ArrayList<>();
