@@ -1,16 +1,11 @@
 package ku.merseong.alcohollist;
 
-import java.lang.reflect.Array;
-import java.net.InterfaceAddress;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
 
 public class Alcohol
 {
     private static int nextindex = 0;
-    public static ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
+    private static ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
 
     public int index;
     public DaFe dateNfeel;
@@ -36,7 +31,7 @@ public class Alcohol
     // 코멘트에 대한 String을 길이를 조절해서 반환. 설정값 30
     public String GetShortComment()
     {
-        int limit_len = 30;
+        int limit_len = 80;
         if (limit_len > comment.length())
             return comment;
         else
@@ -49,22 +44,43 @@ public class Alcohol
         AlcList.remove(index);
     }
 
+    public static ArrayList<Alcohol> publicAlcList()
+    {
+        ArrayList<Alcohol> out = new ArrayList<>();
+        for (int i = AlcList.size() - 1; i >= 0; i--)
+        {
+            out.add(AlcList.get(i));
+        }
+        return out;
+    }
+
     // 이름을 입력받고, 그 이름이 포함된 이름을 가진 index들을 리턴, 없으면 빈 ArrayList를 리턴
-    public ArrayList<Integer> SearchByName(String tosearch)
+    public ArrayList<Integer> SearchbyName(String s_name)
     {
         ArrayList<Integer> out = new ArrayList<>();
         return out;
     }
 
-    // 날짜를 입력받고 해당하는 index들을 리턴, 없으면 빈 ArrayList를 리턴
-    public ArrayList<Integer> SearchByDate(int tosearch)
+    // 술의 종류중 하나를 입력받고, 해당하는 index들을 리턴, 없으면 빈 ArrayList를 리턴
+    public ArrayList<Integer> SearchbyCategory(String s_category)
     {
         ArrayList<Integer> out = new ArrayList<>();
-        if (tosearch <= 0) { return out; }
+        for (Enums.AlcCategory item : Enums.AlcCategory.values())
+            if (item.getName().equals(s_category))
+                for (Alcohol alc : AlcList)
+                    if (alc.category.getName().equals(s_category)) out.add(alc.index);
+        return out;
+    }
 
-        int year = tosearch / 10000;
-        int month = (tosearch % 10000) / 100;
-        int day = (tosearch % 100);
+    // 날짜를 입력받고 해당하는 index들을 리턴, 없으면 빈 ArrayList를 리턴
+    public ArrayList<Integer> SearchbyDate(int s_date)
+    {
+        ArrayList<Integer> out = new ArrayList<>();
+        if (s_date <= 0 || s_date >= 1000000) { return out; }
+
+        int year = s_date / 10000;
+        int month = (s_date % 10000) / 100;
+        int day = (s_date % 100);
         if (year > 0 && month > 0 && day > 0)
             for (Alcohol item : AlcList)
             {

@@ -4,8 +4,9 @@
     android:layout_height="150dp"
     android:layout_width="match_parent"
     android:padding="10dp"
-    android:layout_margin="3dp"
-    android:orientation="vertical">
+
+    android:orientation="vertical"
+    android:background="@color/colorWhitest">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,12 +20,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="3dp"
             android:layout_weight="3"
             android:background="@color/colorWhite"
             android:padding="3dp"
             android:text=" 술의 이름"
-            android:textSize="19sp"/>
+            android:textSize="19sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -62,9 +63,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:padding="3dp"
+        android:padding="5dp"
         android:layout_marginTop="3dp"
         android:background="@color/colorWhite"
-        android:text="STORY"/>
+        android:text="STORY"
+        android:textSize="16dp"/>
 
 </LinearLayout>
