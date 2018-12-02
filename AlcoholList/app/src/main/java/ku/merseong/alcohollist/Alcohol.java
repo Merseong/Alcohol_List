@@ -25,14 +25,15 @@ public class Alcohol
         AlcList.add(index, this);
     }
 
-    public String GetDate()
-    {
-        return "DATE";
-    }
+    public String GetDate() { return Integer.toString(dateNfeel.year) + "년 " + Integer.toString(dateNfeel.month) + "월 " + Integer.toString(dateNfeel.day) + "일"; }
 
     public String GetShortComment()
     {
-        return "COMMENT...";
+        int limit_len = 30;
+        if (limit_len > comment.length())
+            return comment;
+        else
+            return comment.substring(0, limit_len) + "...";
     }
 
     public static void delete(int index)
