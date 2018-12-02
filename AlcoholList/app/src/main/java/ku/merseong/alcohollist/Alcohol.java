@@ -6,7 +6,7 @@ public class Alcohol
 {
     private static int nextindex = 0;
     public int index;
-    public ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
+    public static ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
 
     public DaFe dateNfeel;
     public String name;
@@ -25,7 +25,17 @@ public class Alcohol
         AlcList.add(index, this);
     }
 
-    public void delete(int index)
+    public String GetDate()
+    {
+        return "DATE";
+    }
+
+    public String GetShortComment()
+    {
+        return "COMMENT...";
+    }
+
+    public static void delete(int index)
     {
         AlcList.remove(index);
     }
