@@ -1,5 +1,13 @@
 package ku.merseong.alcohollist;
 
+import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class Alcohol
@@ -38,14 +46,44 @@ public class Alcohol
             return comment.substring(0, limit_len) + "...";
     }
 
+    public String ToString()
+    {
+        return Integer.toString(index) + " " + dateNfeel.toString() + " " + name + " " +
+                category.getName() + " " + food + " " + comment;
+    }
+
     // index에 해당하는 기록을 삭제
     public static void delete(int index)
     {
         AlcList.remove(index);
     }
 
-    public static void Save()
-    {}
+    public static void Save(Activity activity)
+    {
+        String FILENAME = "DATA_file";
+        String tosave = "DATAS!";
+
+        try
+        {
+            FileOutputStream fos = activity.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            try
+            {
+                osw.write(tosave);
+                osw.flush();
+                osw.close();
+                Toast.makeText(activity.getBaseContext(), "Data saved", Toast.LENGTH_LONG).show();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static void Load()
     {}

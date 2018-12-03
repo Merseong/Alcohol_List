@@ -34,4 +34,10 @@ public class DaFe
         if (tocomp.year == this.year && tocomp.month == this.month && tocomp.day == this.day) return true;
         else return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return feel.name() + Integer.toString(year) + Integer.toString(month) + Integer.toString(day);
+    }
 }
