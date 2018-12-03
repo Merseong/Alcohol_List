@@ -49,7 +49,7 @@ public class Alcohol
     public String ToString()
     {
         return Integer.toString(index) + " " + dateNfeel.toString() + " " + name + " " +
-                category.getName() + " " + food + " " + comment;
+                category.getName() + " " + food + " " + comment + "\n";
     }
 
     // index에 해당하는 기록을 삭제
@@ -61,7 +61,10 @@ public class Alcohol
     public static void Save(Activity activity)
     {
         String FILENAME = "DATA_file";
-        String tosave = "DATAS!";
+        StringBuilder tosave = new StringBuilder();
+
+        for (Alcohol alc : AlcList)
+            tosave.append(alc.toString());
 
         try
         {
@@ -69,7 +72,7 @@ public class Alcohol
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             try
             {
-                osw.write(tosave);
+                osw.write(tosave.toString());
                 osw.flush();
                 osw.close();
                 Toast.makeText(activity.getBaseContext(), "Data saved", Toast.LENGTH_LONG).show();
