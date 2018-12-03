@@ -68,6 +68,12 @@ public class Alcohol
     public ArrayList<Integer> SearchbyName(String s_name)
     {
         ArrayList<Integer> out = new ArrayList<>();
+
+        for (Alcohol Alc : AlcList)
+        {
+            if (Alc.name.contains(s_name)) out.add(Alc.index);
+        }
+
         return out;
     }
 
