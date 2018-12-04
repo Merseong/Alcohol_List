@@ -38,6 +38,6 @@ public class DaFe
     @Override
     public String toString()
     {
-        return feel.name() + Integer.toString(year) + Integer.toString(month) + Integer.toString(day);
+        return Integer.toString(feel.ordinal()) + Integer.toString(year) + Integer.toString(month) + Integer.toString(day);
     }
 }

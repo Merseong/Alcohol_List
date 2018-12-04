@@ -33,6 +33,28 @@ public class Alcohol
         AlcList.add(index, this);
     }
 
+    public Alcohol(String input)
+    {
+        String[] s_input = input.split(" ");
+        StringBuilder food_input = new StringBuilder();
+        StringBuilder comment_input = new StringBuilder();
+        int comment_startindex = 4 + Integer.parseInt(s_input[4]) + 1;
+
+        this.index = Integer.parseInt(s_input[0]);
+        if (nextindex < index + 1) nextindex = index + 1;
+        this.dateNfeel = new DaFe(Integer.parseInt(s_input[1]));
+        this.name = s_input[2];
+        for (Enums.AlcCategory alc : Enums.AlcCategory.values())
+            if (alc.getName().equals(s_input[3])) { this.category = alc; break;
+        }
+        for (int i = 5; i < comment_startindex; i++)
+            food_input.append(s_input[i]);
+        for (int i = comment_startindex; i < s_input.length; i++)
+            comment_input.append(s_input[i]);
+        this.food = food_input.toString();
+        this.comment = comment_input.toString();
+    }
+
     // 날짜에 대한 String을 반환
     public String GetDate() { return Integer.toString(dateNfeel.year) + "년 " + Integer.toString(dateNfeel.month) + "월 " + Integer.toString(dateNfeel.day) + "일"; }
 
@@ -49,7 +71,7 @@ public class Alcohol
     public String ToString()
     {
         return Integer.toString(index) + " " + dateNfeel.toString() + " " + name + " " +
-                category.getName() + " " + food + " " + comment + "\n";
+                category.getName() + " " + Integer.toString(food.split(" ").length) + " " + food + " " + comment + "\n";
     }
 
     // index에 해당하는 기록을 삭제
