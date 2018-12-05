@@ -18,7 +18,7 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/Search_text"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginRight="5dp"
@@ -29,8 +29,9 @@
             android:tooltipText="Search..."
             android:layout_weight="1"/>
 
+        <!-- 검색 버튼 -->
         <ImageButton
-            android:id="@+id/button"
+            android:id="@+id/search_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="3dp"
@@ -39,14 +40,16 @@
             android:background="@android:color/transparent"
             android:scaleType="fitXY"/>
 
+        <!-- 추가 버튼 -->
         <ImageButton
-            android:id="@+id/button2"
+            android:id="@+id/add_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="3dp"
             android:src="@drawable/baseline_library_add_white_18dp"
             android:background="@android:color/transparent"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:onClick="onAddButtonClicked"/>
 
     </LinearLayout>
 
