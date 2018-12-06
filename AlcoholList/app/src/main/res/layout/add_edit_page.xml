@@ -29,10 +29,17 @@
             android:src="@drawable/baseline_arrow_back_ios_white_18dp"
             android:onClick="onBackButtonClicked"/>
 
-        <View
+        <TextView
+            android:id="@+id/title"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textSize="25dp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:text="NEW / EDIT"
+            android:gravity="center"/>
 
         <!-- 저장 버튼 -->
         <ImageButton
@@ -44,6 +51,77 @@
             android:background="@android:color/transparent"
             android:src="@drawable/baseline_save_alt_white_18dp"
             android:onClick="onSaveButtonClicked"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/AlcName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:hint="술 이름"
+            android:textSize="23dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/AlcFood"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:hint="같이 먹은 안주"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/AlcCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:entries="@array/AlcCategory"
+                    android:autofillHints="술의 종류"/>
+
+                <EditText
+                    android:id="@+id/AlcDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:hint="YYMMDD"
+                    android:textSize="11dp"
+                    android:gravity="center"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/AlcComment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:hint="술에 대한 코멘트"
+            android:background="@null"
+            android:padding="4dp"/>
 
     </LinearLayout>
 

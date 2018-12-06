@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="AlcCategory">
+        <item >기타</item>
+        <item >소주</item>
+        <item >맥주</item>
+        <item >청주</item>
+        <item >탁주</item>
+    </string-array>
+</resources>
