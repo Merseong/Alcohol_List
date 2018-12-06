@@ -36,21 +36,25 @@ public class Alcohol
     public Alcohol(String input)
     {
         String[] s_input = input.split(" ");
+        StringBuilder name_input = new StringBuilder();
         StringBuilder food_input = new StringBuilder();
         StringBuilder comment_input = new StringBuilder();
+        int food_startindex = 2 + Integer.parseInt(s_input[2]) + 1;
         int comment_startindex = 4 + Integer.parseInt(s_input[4]) + 1;
 
         this.index = Integer.parseInt(s_input[0]);
         if (nextindex < index + 1) nextindex = index + 1;
         this.dateNfeel = new DaFe(Integer.parseInt(s_input[1]));
-        this.name = s_input[2];
+        for (int i = 3; i < food_startindex; i++)
+            name_input.append(s_input[i]).append(" ");
         for (Enums.AlcCategory alc : Enums.AlcCategory.values())
             if (alc.getName().equals(s_input[3])) { this.category = alc; break;
         }
-        for (int i = 5; i < comment_startindex; i++)
-            food_input.append(s_input[i]);
+        for (int i = food_startindex; i < comment_startindex; i++)
+            food_input.append(s_input[i]).append(" ");
         for (int i = comment_startindex; i < s_input.length; i++)
-            comment_input.append(s_input[i]);
+            comment_input.append(s_input[i]).append(" ");
+        this.name = name_input.toString();
         this.food = food_input.toString();
         this.comment = comment_input.toString();
     }
@@ -70,7 +74,7 @@ public class Alcohol
 
     public String ToString()
     {
-        return Integer.toString(index) + " " + dateNfeel.toString() + " " + name + " " +
+        return Integer.toString(index) + " " + dateNfeel.toString() + " " + Integer.toString(name.split(" ").length) + " " + name + " " +
                 category.getName() + " " + Integer.toString(food.split(" ").length) + " " + food + " " + comment + "\n";
     }
 
