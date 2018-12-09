@@ -95,7 +95,10 @@ public class AddEditActivity extends Activity
             BufferedWriter buw = new BufferedWriter(new OutputStreamWriter(fos, "UTF8"));
 
             for (Alcohol alc : Alcohol.AlcList)
-                buw.write(alc.ToString());
+            {
+                buw.write(alc.toString());
+                buw.newLine();
+            }
 
             buw.close();
             fos.close();

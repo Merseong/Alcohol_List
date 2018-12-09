@@ -1,19 +1,10 @@
 package ku.merseong.alcohollist;
 
-import android.app.Activity;
-import android.content.Context;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.FileNameMap;
 import java.util.ArrayList;
 
 public class Alcohol
@@ -28,6 +19,15 @@ public class Alcohol
     public String food;
     public String comment;
 
+    public Alcohol()
+    {
+        this.name = "null";
+        this.category = Enums.AlcCategory.OTHERS;
+        this.food = "null";
+        this.comment = "null";
+        this.dateNfeel = new DaFe(1111111);
+    }
+
     public Alcohol(int date, String name, Enums.AlcCategory cat, String food, String comment)
     {
         this.name = name;
@@ -40,35 +40,27 @@ public class Alcohol
     }
 
     public Alcohol(String input)
-    {
-        String[] s_input = input.split(" ");
-        StringBuilder name_input = new StringBuilder();
-        StringBuilder food_input = new StringBuilder();
-        StringBuilder comment_input = new StringBuilder();
-        int food_startindex = 2 + Integer.parseInt(s_input[2]) + 3; // 6
-        int comment_startindex = food_startindex + Integer.parseInt(s_input[food_startindex - 1]); // 8
-
-        this.index = Integer.parseInt(s_input[0]);
-        if (nextindex < index + 1) nextindex = index + 1;
-        this.dateNfeel = new DaFe(Integer.parseInt(s_input[1]));
-        for (int i = 3; i < food_startindex; i++)
-            name_input.append(s_input[i]).append(" ");
-        for (Enums.AlcCategory alc : Enums.AlcCategory.values())
-            if (alc.getName().equals(s_input[food_startindex - 2])) { this.category = alc; break;
+        {
+        String[] s_input = input.split("@");
+        this.dateNfeel = new DaFe(Integer.parseInt(s_input[0]));
+        this.name = s_input[1];
+        this.category = Enums.AlcCategory.OTHERS;
+        for (Enums.AlcCategory alc : Enums.AlcCategory.values()) {
+            if (s_input[2].equals(alc.getName())) {
+                this.category = alc;
+                break;
+            }
         }
-        for (int i = food_startindex; i < comment_startindex; i++)
-            food_input.append(s_input[i]).append(" ");
-        for (int i = comment_startindex; i < s_input.length; i++)
-            comment_input.append(s_input[i]).append(" ");
-        this.name = name_input.toString();
-        this.food = food_input.toString();
-        this.comment = comment_input.toString();
+        this.food = s_input[3];
+        this.comment = s_input[4];
+        this.index = nextindex++;
+        AlcList.add(this);
     }
 
     // 날짜에 대한 String을 반환
     public String GetDate() { return Integer.toString(dateNfeel.year) + "년 " + Integer.toString(dateNfeel.month) + "월 " + Integer.toString(dateNfeel.day) + "일"; }
 
-    // 코멘트에 대한 String을 길이를 조절해서 반환. 설정값 30
+    // 코멘트에 대한 String을 길이를 조절해서 반환. 설정값 80
     public String GetShortComment()
     {
         int limit_len = 80;
@@ -78,10 +70,11 @@ public class Alcohol
             return comment.substring(0, limit_len) + "...";
     }
 
-    public String ToString()
+    @Override
+    // Save, Load를 위해 String 형태로 출력
+    public String toString()
     {
-        return Integer.toString(index) + " " + dateNfeel.toString() + " " + Integer.toString(name.split(" ").length) + " " + name + " " +
-                category.getName() + " " + Integer.toString(food.split(" ").length) + " " + food + " " + comment + "\n";
+        return dateNfeel.toString() + "@" + name + "@" + category.getName() + "@" + food + "@" + comment;
     }
 
     // index에 해당하는 기록을 삭제
