@@ -17,6 +17,7 @@
         android:padding="5dp"
         android:gravity="center">
 
+        <!-- 검색 바 -->
         <EditText
             android:id="@+id/Search_text"
             android:layout_width="0dp"

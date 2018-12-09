@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter
 {
-    LayoutInflater inflater = null;
+    private LayoutInflater inflater = null;
     private ArrayList<Alcohol> m_oData = null;
     private int nListCnt = 0;
 

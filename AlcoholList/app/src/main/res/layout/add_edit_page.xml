@@ -23,11 +23,12 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="3dp"
-            android:paddingStart="7dp"
+            android:paddingLeft="7dp"
             android:scaleType="fitXY"
             android:background="@android:color/transparent"
             android:src="@drawable/baseline_arrow_back_ios_white_18dp"
-            android:onClick="onBackButtonClicked"/>
+            android:onClick="onBackButtonClicked"
+            android:paddingStart="7dp" />
 
         <TextView
             android:id="@+id/title"

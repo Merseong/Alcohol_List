@@ -9,11 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
+import java.io.*;
 
 public class AddEditActivity extends Activity
 {
@@ -56,27 +52,32 @@ public class AddEditActivity extends Activity
 
     public void onBackButtonClicked(View v)
     {
-        Toast.makeText(this, "onBackButtonClicked", Toast.LENGTH_SHORT).show();
+
+        MainActivity.imm.hideSoftInputFromWindow(alcName.getWindowToken(), 0);
         finish();
     }
 
     public void onSaveButtonClicked(View view)
     {
-        /*
         String name = alcName.getText().toString();
         String food = alcFood.getText().toString();
         int date = Integer.parseInt(alcDate.getText().toString()) + 1000000;
         String comment = alcComment.getText().toString();
 
-        new Alcohol(date, name, category, food, comment);
+        try {
+            new Alcohol(date, name, category, food, comment);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, "문제가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        Toast.makeText(this, "정상적으로 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
-        MainActivity.m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));*/
-        new Alcohol(1234567, "히로유키", Enums.AlcCategory.CHEONGJU, "밥 이랑", "dhk! 엊아ㅓㅣㅏ넝ㄹ");
-        new Alcohol(1234567, "히로유키", Enums.AlcCategory.CHEONGJU, "밥 이랑", "dhk! 엊아ㅓㅣㅏ넝ㄹ");
-        new Alcohol(1234567, "히로유키", Enums.AlcCategory.CHEONGJU, "밥 이랑", "dhk! 엊아ㅓㅣㅏ넝ㄹ");
-
+        MainActivity.m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
         Save();
 
+        MainActivity.imm.hideSoftInputFromWindow(alcName.getWindowToken(), 0);
         finish();
     }
 
@@ -102,10 +103,11 @@ public class AddEditActivity extends Activity
 
             buw.close();
             fos.close();
-            Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e)
         {
+            Toast.makeText(this, "문제가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 }

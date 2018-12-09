@@ -19,25 +19,18 @@ public class DaFe
             if (fe.ordinal() == dafe/1000000) {feel = fe; break;}
     }
 
-    public DaFe(int year, int month, int day)
-    {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        feel = Enums.Feel.SOSO;
-    }
-
     @Override
     public boolean equals(Object obj)
     {
         DaFe tocomp = (DaFe)obj;
-        if (tocomp.year == this.year && tocomp.month == this.month && tocomp.day == this.day) return true;
-        else return false;
+        return tocomp.toString().equals(this.toString());
     }
 
     @Override
     public String toString()
     {
-        return Integer.toString(feel.ordinal()) + Integer.toString(year) + Integer.toString(month) + Integer.toString(day);
+        return Integer.toString(feel.ordinal()) + (year < 10 ? "0" : "") + Integer.toString(year) +
+                (month < 10 ? "0" : "") + Integer.toString(month) +
+                (day < 10 ? "0" : "") + Integer.toString(day);
     }
 }

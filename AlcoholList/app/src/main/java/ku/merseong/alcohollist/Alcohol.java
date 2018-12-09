@@ -1,11 +1,10 @@
 package ku.merseong.alcohollist;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
+import android.widget.Toast;
+
+import java.util.*;
+
+import static ku.merseong.alcohollist.MainActivity.MainContext;
 
 public class Alcohol
 {
@@ -19,15 +18,6 @@ public class Alcohol
     public String food;
     public String comment;
 
-    public Alcohol()
-    {
-        this.name = "null";
-        this.category = Enums.AlcCategory.OTHERS;
-        this.food = "null";
-        this.comment = "null";
-        this.dateNfeel = new DaFe(1111111);
-    }
-
     public Alcohol(int date, String name, Enums.AlcCategory cat, String food, String comment)
     {
         this.name = name;
@@ -40,7 +30,7 @@ public class Alcohol
     }
 
     public Alcohol(String input)
-        {
+    {
         String[] s_input = input.split("@");
         this.dateNfeel = new DaFe(Integer.parseInt(s_input[0]));
         this.name = s_input[1];
@@ -83,80 +73,6 @@ public class Alcohol
         AlcList.remove(index);
     }
 
-    public static void Save()
-    {
-        String FILENAME = "DATA_file.txt";
-        File file = new File(FILENAME);
-        FileWriter fw = null;
-        BufferedWriter bufwr;
-
-        try
-        {
-            fw = new FileWriter(file);
-            bufwr = new BufferedWriter(fw);
-
-            for (Alcohol alc : AlcList)
-                bufwr.write(alc.toString());
-
-            bufwr.flush();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        if (fw != null)
-        {
-            try
-            {
-                fw.close();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void Load()
-    {
-        String FILENAME = "DATA_file.txt";
-        File file = new File(FILENAME);
-        FileReader fr;
-        BufferedReader bufrd;
-        String str;
-
-        if (file.exists())
-        {
-            try
-            {
-                fr = new FileReader(file);
-                bufrd = new BufferedReader(fr);
-
-                while ((str = bufrd.readLine()) != null)
-                {
-                    new Alcohol(str);
-                }
-
-                bufrd.close();
-                fr.close();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-        else
-        {
-            file.mkdirs();
-        }
-    }
-
-    public static void Reset()
-    {
-
-    }
-
     // AlcList를 역순으로 출력
     public static ArrayList<Alcohol> publicAlcList()
     {
@@ -168,8 +84,28 @@ public class Alcohol
         return out;
     }
 
+    public static Alcohol Search(int index)
+    {
+        for (Alcohol alc : AlcList)
+        {
+            if (alc.index == index) return alc;
+        }
+        return null;
+    }
+
+    public static HashSet<Integer> Search(String toSearch)
+    {
+        HashSet<Integer> out = new HashSet<>();
+
+        out.addAll(SearchbyName(toSearch));
+        out.addAll(SearchbyCategory(toSearch));
+        out.addAll(SearchbyDate(toSearch));
+
+        return out;
+    }
+
     // 이름을 입력받고, 그 이름이 포함된 이름을 가진 index들을 리턴, 없으면 빈 ArrayList를 리턴
-    public ArrayList<Integer> SearchbyName(String s_name)
+    private static ArrayList<Integer> SearchbyName(String s_name)
     {
         ArrayList<Integer> out = new ArrayList<>();
 
@@ -182,7 +118,7 @@ public class Alcohol
     }
 
     // 술의 종류중 하나를 입력받고, 해당하는 index들을 리턴, 없으면 빈 ArrayList를 리턴
-    public ArrayList<Integer> SearchbyCategory(String s_category)
+    private static ArrayList<Integer> SearchbyCategory(String s_category)
     {
         ArrayList<Integer> out = new ArrayList<>();
         for (Enums.AlcCategory item : Enums.AlcCategory.values())
@@ -193,19 +129,26 @@ public class Alcohol
     }
 
     // 날짜를 입력받고 해당하는 index들을 리턴, 없으면 빈 ArrayList를 리턴
-    public ArrayList<Integer> SearchbyDate(int s_date)
+    private static ArrayList<Integer> SearchbyDate(String s_date)
     {
+        int i_date = 0;
         ArrayList<Integer> out = new ArrayList<>();
-        if (s_date <= 0 || s_date >= 1000000) { return out; }
 
-        int year = s_date / 10000;
-        int month = (s_date % 10000) / 100;
-        int day = (s_date % 100);
-        if (year > 0 && month > 0 && day > 0)
-            for (Alcohol item : AlcList)
-            {
-                if (item.dateNfeel == new DaFe(year, month, day)) out.add(item.index);
-            }
+        try {
+            i_date = Integer.parseInt(s_date);
+        }
+        catch (Exception e)
+        {
+            return out;
+        }
+
+        if (i_date <= 0) { return out; }
+
+        i_date += 1000000;
+        for (Alcohol item : AlcList)
+        {
+            if (item.dateNfeel.equals(new DaFe(i_date))) out.add(item.index);
+        }
         return out;
     }
 }
