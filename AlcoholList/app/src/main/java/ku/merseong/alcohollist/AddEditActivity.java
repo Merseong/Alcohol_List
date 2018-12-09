@@ -2,14 +2,11 @@ package ku.merseong.alcohollist;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.io.*;
 
 public class AddEditActivity extends Activity
 {
@@ -61,10 +58,18 @@ public class AddEditActivity extends Activity
     {
         String name = alcName.getText().toString();
         String food = alcFood.getText().toString();
-        int date = Integer.parseInt(alcDate.getText().toString()) + 1000000;
+        int date = 0;
         String comment = alcComment.getText().toString();
 
+        if (name.length() == 0 || food.length() == 0 || comment.length() == 0)
+        {
+            Toast.makeText(this, "빈 일기는 저장되지 않습니다.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         try {
+            date += alcDate.getText().toString().length() == 6? Integer.parseInt(alcDate.getText().toString()) + 1000000 : 1000000;
             new Alcohol(date, name, category, food, comment);
         }
         catch (Exception e)
@@ -75,39 +80,10 @@ public class AddEditActivity extends Activity
         Toast.makeText(this, "정상적으로 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
         MainActivity.m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
-        Save();
+
+        Alcohol.Save();
 
         MainActivity.imm.hideSoftInputFromWindow(alcName.getWindowToken(), 0);
         finish();
-    }
-
-    private void Save()
-    {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Alc_List";
-
-        File file;
-        file = new File(path);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        file = new File(path + File.separator + "Alc" + ".txt");
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            BufferedWriter buw = new BufferedWriter(new OutputStreamWriter(fos, "UTF8"));
-
-            for (Alcohol alc : Alcohol.AlcList)
-            {
-                buw.write(alc.toString());
-                buw.newLine();
-            }
-
-            buw.close();
-            fos.close();
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(this, "문제가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-            finish();
-        }
     }
 }

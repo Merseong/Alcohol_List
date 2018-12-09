@@ -1,10 +1,13 @@
 package ku.merseong.alcohollist;
 
+import android.os.Environment;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.*;
-
-import static ku.merseong.alcohollist.MainActivity.MainContext;
 
 public class Alcohol
 {
@@ -150,5 +153,40 @@ public class Alcohol
             if (item.dateNfeel.equals(new DaFe(i_date))) out.add(item.index);
         }
         return out;
+    }
+
+    public static void Save()
+    {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Alc_List";
+
+        File file;
+        file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        file = new File(path + File.separator + "Alc" + ".txt");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedWriter buw = new BufferedWriter(new OutputStreamWriter(fos, "UTF8"));
+
+            for (Alcohol alc : Alcohol.AlcList)
+            {
+                buw.write(alc.toString());
+                buw.newLine();
+            }
+
+            buw.close();
+            fos.close();
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(MainActivity.MainContext, "문제가 발생했습니다. 다시 시도해주세요. (권한 설정을 확인해주세요.)", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void Reset()
+    {
+        nextindex = 0;
+        AlcList = new ArrayList<>();
     }
 }

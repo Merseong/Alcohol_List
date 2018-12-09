@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity
 
     public static InputMethodManager imm;
 
+    private int whatitemClicked = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,6 +41,24 @@ public class MainActivity extends AppCompatActivity
         searchButton = (ImageButton)findViewById(R.id.search_button);
         searchText = (EditText)findViewById(R.id.Search_text);
         m_oListView = (ListView)findViewById(R.id.listview1);
+        m_oListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (whatitemClicked != i)
+                {
+                    Toast.makeText(MainContext, Alcohol.publicAlcList().get(i).name + "에 대한 기록을 삭제하려면 한번 더 눌러주세요.", Toast.LENGTH_LONG).show();
+                    whatitemClicked = i;
+                }
+                else {
+                    Alcohol.delete(Alcohol.AlcList.size() - i - 1);
+                    Alcohol.Save();
+                    Load();
+                    m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
+                    whatitemClicked = -1;
+                    Toast.makeText(MainContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
     }
 
@@ -49,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     public void Load()
     {
+        Alcohol.Reset();
         final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Alc_List" + File.separator + "Alc.txt";
 
         try
@@ -94,6 +116,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         searchButton.setImageResource(R.drawable.baseline_arrow_back_ios_white_18dp);
+        searchText.clearFocus();
         isSearching = true;
         m_oListView.setAdapter(new ListAdapter(Alc_list));
     }

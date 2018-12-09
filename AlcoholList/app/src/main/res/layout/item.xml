@@ -4,7 +4,6 @@
     android:layout_height="150dp"
     android:layout_width="match_parent"
     android:padding="10dp"
-
     android:orientation="vertical"
     android:background="@color/colorWhitest">
 
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="작성 날짜"
-                android:textSize="10sp" />
+                android:textSize="10dp" />
             <!-- 술의 종류 -->
             <TextView
                 android:id="@+id/category_text"
@@ -51,10 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="술의 종류"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
         </LinearLayout>
-
-
     </LinearLayout>
 
     <!-- 감상평 -->
@@ -67,6 +64,6 @@
         android:layout_marginTop="3dp"
         android:background="@color/colorWhite"
         android:text="STORY"
-        android:textSize="16dp"/>
+        android:textSize="16dp" />
 
 </LinearLayout>
