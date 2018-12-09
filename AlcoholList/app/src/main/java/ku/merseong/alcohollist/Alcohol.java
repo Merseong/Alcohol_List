@@ -4,16 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.FileNameMap;
 import java.util.ArrayList;
 
 public class Alcohol
 {
     private static int nextindex = 0;
-    private static ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
+    public static ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
 
     public int index;
     public DaFe dateNfeel;
@@ -30,7 +36,7 @@ public class Alcohol
         this.comment = comment;
         this.dateNfeel = new DaFe(date);
         index = nextindex++;
-        AlcList.add(index, this);
+        AlcList.add(this);
     }
 
     public Alcohol(String input)
@@ -39,8 +45,8 @@ public class Alcohol
         StringBuilder name_input = new StringBuilder();
         StringBuilder food_input = new StringBuilder();
         StringBuilder comment_input = new StringBuilder();
-        int food_startindex = 2 + Integer.parseInt(s_input[2]) + 1;
-        int comment_startindex = 4 + Integer.parseInt(s_input[4]) + 1;
+        int food_startindex = 2 + Integer.parseInt(s_input[2]) + 3; // 6
+        int comment_startindex = food_startindex + Integer.parseInt(s_input[food_startindex - 1]); // 8
 
         this.index = Integer.parseInt(s_input[0]);
         if (nextindex < index + 1) nextindex = index + 1;
@@ -48,7 +54,7 @@ public class Alcohol
         for (int i = 3; i < food_startindex; i++)
             name_input.append(s_input[i]).append(" ");
         for (Enums.AlcCategory alc : Enums.AlcCategory.values())
-            if (alc.getName().equals(s_input[3])) { this.category = alc; break;
+            if (alc.getName().equals(s_input[food_startindex - 2])) { this.category = alc; break;
         }
         for (int i = food_startindex; i < comment_startindex; i++)
             food_input.append(s_input[i]).append(" ");
@@ -84,41 +90,79 @@ public class Alcohol
         AlcList.remove(index);
     }
 
-    public static void Save(Activity activity)
+    public static void Save()
     {
-        String FILENAME = "DATA_file";
-        StringBuilder tosave = new StringBuilder();
-
-        for (Alcohol alc : AlcList)
-            tosave.append(alc.toString());
+        String FILENAME = "DATA_file.txt";
+        File file = new File(FILENAME);
+        FileWriter fw = null;
+        BufferedWriter bufwr;
 
         try
         {
-            FileOutputStream fos = activity.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            fw = new FileWriter(file);
+            bufwr = new BufferedWriter(fw);
+
+            for (Alcohol alc : AlcList)
+                bufwr.write(alc.toString());
+
+            bufwr.flush();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        if (fw != null)
+        {
             try
             {
-                osw.write(tosave.toString());
-                osw.flush();
-                osw.close();
-                Toast.makeText(activity.getBaseContext(), "Data saved", Toast.LENGTH_LONG).show();
+                fw.close();
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     public static void Load()
-    {}
+    {
+        String FILENAME = "DATA_file.txt";
+        File file = new File(FILENAME);
+        FileReader fr;
+        BufferedReader bufrd;
+        String str;
+
+        if (file.exists())
+        {
+            try
+            {
+                fr = new FileReader(file);
+                bufrd = new BufferedReader(fr);
+
+                while ((str = bufrd.readLine()) != null)
+                {
+                    new Alcohol(str);
+                }
+
+                bufrd.close();
+                fr.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            file.mkdirs();
+        }
+    }
 
     public static void Reset()
-    {}
+    {
+
+    }
 
     // AlcList를 역순으로 출력
     public static ArrayList<Alcohol> publicAlcList()

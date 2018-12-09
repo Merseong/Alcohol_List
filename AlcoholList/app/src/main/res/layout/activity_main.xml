@@ -38,7 +38,8 @@
             android:layout_marginRight="3dp"
             android:src="@drawable/baseline_search_white_18dp"
             android:background="@android:color/transparent"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:onClick="onSearchButtonClicked"/>
 
         <!-- 추가 버튼 -->
         <ImageButton
