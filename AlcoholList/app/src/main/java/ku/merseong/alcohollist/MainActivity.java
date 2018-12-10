@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
         searchButton = (ImageButton)findViewById(R.id.search_button);
         searchText = (EditText)findViewById(R.id.Search_text);
         m_oListView = (ListView)findViewById(R.id.listview1);
+
+        // 술 일기의 삭제에 관여, 두번 터치시 삭제되도록 클릭된 item의 index를 기억해둔다.
         m_oListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity
                     whatitemClicked = i;
                 }
                 else {
+                    // Alcohol의 데이터를 삭제하고, 그걸 데이터에 저장한 뒤 다시 로드한다.
                     Alcohol.delete(Alcohol.AlcList.size() - i - 1);
                     Alcohol.Save();
                     Load();
@@ -62,12 +65,14 @@ public class MainActivity extends AppCompatActivity
         m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
     }
 
+    // 추가 창으로 넘기도록
     public void onAddButtonClicked(View view)
     {
         Intent intent = new Intent(this, AddEditActivity.class);
         startActivity(intent);
     }
 
+    // 초기에 데이터를 불러온다.
     public void Load()
     {
         Alcohol.Reset();
@@ -94,6 +99,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    // 검색 버튼, 검색 후 아이콘이 바뀌도록
     public void onSearchButtonClicked(View view)
     {
         String toSearch = searchText.getText().toString();

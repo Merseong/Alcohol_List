@@ -12,6 +12,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+// Alcohol의 데이터들을 메인 화면의 ListView에 넣기 위해 데이터를 조정해주는 클래스
 public class ListAdapter extends BaseAdapter
 {
     private LayoutInflater inflater = null;

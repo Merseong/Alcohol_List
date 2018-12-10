@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+// 술일기를 새로 추가하는 화면에 적용되는 클래스
 public class AddEditActivity extends Activity
 {
     EditText alcName;
@@ -31,6 +32,7 @@ public class AddEditActivity extends Activity
         alcDate = (EditText)findViewById(R.id.AlcDate);
         alcComment = (EditText)findViewById(R.id.AlcComment);
 
+        // 술의 종류에 대해 기록할때 쓰인다.
         alcCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -47,6 +49,7 @@ public class AddEditActivity extends Activity
         });
     }
 
+    // 뒤로가기 버튼
     public void onBackButtonClicked(View v)
     {
 
@@ -54,6 +57,7 @@ public class AddEditActivity extends Activity
         finish();
     }
 
+    // 저장 버튼을 눌렀을때
     public void onSaveButtonClicked(View view)
     {
         String name = alcName.getText().toString();

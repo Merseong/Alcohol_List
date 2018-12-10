@@ -2,6 +2,7 @@ package ku.merseong.alcohollist;
 
 import java.util.Calendar;
 
+// Date&Feel, 날짜의 경우는 구현했으나, 기분의 표현은 아직 미구현이라 1번 상태로 고정함
 public class DaFe
 {
     public Enums.Feel feel;
@@ -13,6 +14,7 @@ public class DaFe
     // 인풋방식 (기분1자리)(연도2자리)(월2자리)(일2자리)
     public DaFe(int dafe)
     {
+        // 만일 날짜를 입력하지 않았다면 입력한 날짜를 Date로 한다.
         if (dafe == 1000000)
         {
             Calendar cal = Calendar.getInstance();

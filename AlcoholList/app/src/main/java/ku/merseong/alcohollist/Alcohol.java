@@ -9,8 +9,10 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
+// 술 일기에 대한 클래스
 public class Alcohol
 {
+    // static 필드, 모든 술일기를 static ArrayList에 저장한다.
     private static int nextindex = 0;
     public static ArrayList<Alcohol> AlcList = new ArrayList<Alcohol>();
 
@@ -32,6 +34,7 @@ public class Alcohol
         AlcList.add(this);
     }
 
+    // Data를 불러올때 쓰인다.
     public Alcohol(String input)
     {
         String[] s_input = input.split("@");
@@ -76,7 +79,7 @@ public class Alcohol
         AlcList.remove(index);
     }
 
-    // AlcList를 역순으로 출력
+    // AlcList를 역순으로 출력, 최근 생성한 기록을 위쪽에 표시되도록 만든다.
     public static ArrayList<Alcohol> publicAlcList()
     {
         ArrayList<Alcohol> out = new ArrayList<>();
@@ -87,6 +90,7 @@ public class Alcohol
         return out;
     }
 
+    // 술일기를 인덱스를 기준으로 찾는다.
     public static Alcohol Search(int index)
     {
         for (Alcohol alc : AlcList)
@@ -96,8 +100,10 @@ public class Alcohol
         return null;
     }
 
+    // 술일기를 이름, 카테고리, 날짜를 기준으로 찾는다.
     public static HashSet<Integer> Search(String toSearch)
     {
+        // HashSet에 저장하여 같은 인덱스가 중복되어 찾아지도록 하지 않는다.
         HashSet<Integer> out = new HashSet<>();
 
         out.addAll(SearchbyName(toSearch));
@@ -155,6 +161,7 @@ public class Alcohol
         return out;
     }
 
+    // 파일을 저장한다.
     public static void Save()
     {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Alc_List";
@@ -184,6 +191,7 @@ public class Alcohol
         }
     }
 
+    // Load시 이전의 데이터와 중복되지 않도록 리셋시켜준다.
     public static void Reset()
     {
         nextindex = 0;
