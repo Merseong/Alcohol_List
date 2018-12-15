@@ -90,4 +90,7 @@ public class AddEditActivity extends Activity
         MainActivity.imm.hideSoftInputFromWindow(alcName.getWindowToken(), 0);
         finish();
     }
+
+    public void onEditButtonClicked(View view) {
+    }
 }
