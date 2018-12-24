@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
 
     public static InputMethodManager imm;
 
-    private int whatitemClicked = -1;
+    //private int whatitemClicked = -1; 이전버전의 제거에 사용됨
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity
         m_oListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                toViewActivity(i);
+                /*이전 버전의 제거방식
                 if (whatitemClicked != i)
                 {
                     Toast.makeText(MainContext, Alcohol.publicAlcList().get(i).name + "에 대한 기록을 삭제하려면 한번 더 눌러주세요.", Toast.LENGTH_LONG).show();
@@ -59,10 +61,18 @@ public class MainActivity extends AppCompatActivity
                     m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
                     whatitemClicked = -1;
                     Toast.makeText(MainContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
         m_oListView.setAdapter(new ListAdapter(Alcohol.publicAlcList()));
+    }
+
+    // 리스트의 하나를 눌렀을때 창이 넘어가도록
+    public void toViewActivity(int index)
+    {
+        Intent intent = new Intent(this, ViewActivity.class);
+        intent.putExtra("index", index);
+        startActivity(intent);
     }
 
     // 추가 창으로 넘기도록
